@@ -1,17 +1,21 @@
 @import './variables.css';
 
-* {
-  box-sizing: border-box;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-body {
-  margin: 0;
-  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: var(--color-background);
-}
+@layer base {
+  * {
+    @apply box-border;
+  }
 
-#root {
-  min-height: 100vh;
+  body {
+    @apply m-0 antialiased;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    background-color: var(--color-background);
+  }
+
+  #root {
+    @apply min-h-screen;
+  }
 }

@@ -9,7 +9,7 @@ React + Vite frontend application for Servexa.
 | Framework | React + Vite |
 | Language | TypeScript |
 | State | Redux Toolkit |
-| UI | Material UI (MUI) |
+| UI | Material UI (MUI) + Tailwind CSS |
 | Charts | Recharts |
 | Auth | JWT |
 | API | Axios |
