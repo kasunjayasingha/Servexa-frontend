@@ -1,4 +1,5 @@
-import { AppBar, Toolbar, Typography } from '@mui/material'
+import { AppBar, Toolbar, Typography, Box } from '@mui/material'
+import { ThemeToggle } from '@/components/common/ThemeToggle'
 
 export function Header() {
   return (
@@ -7,6 +8,9 @@ export function Header() {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Servexa
         </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <ThemeToggle />
+        </Box>
       </Toolbar>
     </AppBar>
   )

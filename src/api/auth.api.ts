@@ -14,6 +14,12 @@ export interface AuthResponse {
   }
 }
 
+export interface RegisterPayload {
+  name: string
+  email: string
+  password: string
+}
+
 export const authApi = {
   login: (credentials: LoginCredentials) =>
     axiosInstance.post<AuthResponse>('/auth/login', credentials),
@@ -25,4 +31,7 @@ export const authApi = {
 
   resetPassword: (token: string, password: string) =>
     axiosInstance.post('/auth/reset-password', { token, password }),
+
+  register: (payload: RegisterPayload) =>
+    axiosInstance.post<AuthResponse>('/auth/register', payload),
 }

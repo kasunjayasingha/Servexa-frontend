@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import { ProtectedRoute } from './ProtectedRoute'
 import { Login } from '@/features/auth/pages/Login'
 import { ForgotPassword } from '@/features/auth/pages/ForgotPassword'
+import { SignUp } from '@/features/auth/pages/SignUp'
 import { Dashboard } from '@/features/dashboard/pages/Dashboard'
 import { CustomerList } from '@/features/customers/pages/CustomerList'
 import { CustomerDetails } from '@/features/customers/pages/CustomerDetails'
@@ -13,6 +14,7 @@ export function AppRoutes() {
     <Routes>
       <Route path={ROUTES.LOGIN} element={<Login />} />
       <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPassword />} />
+      <Route path={ROUTES.SIGN_UP} element={<SignUp />} />
 
       <Route element={<ProtectedRoute />}>
         <Route path={ROUTES.DASHBOARD} element={<Dashboard />} />

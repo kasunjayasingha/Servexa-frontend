@@ -5,6 +5,7 @@ export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localho
 export const ROUTES = {
   LOGIN: '/login',
   FORGOT_PASSWORD: '/forgot-password',
+  SIGN_UP: '/sign-up',
   DASHBOARD: '/dashboard',
   CUSTOMERS: '/customers',
   CUSTOMER_DETAILS: '/customers/:id',

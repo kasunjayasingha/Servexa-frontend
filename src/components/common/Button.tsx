@@ -1,7 +1,11 @@
-import { Button as MuiButton, ButtonProps as MuiButtonProps } from '@mui/material'
+import { ButtonHTMLAttributes, forwardRef } from 'react'
 
-export type ButtonProps = MuiButtonProps
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>
 
-export function Button(props: ButtonProps) {
-  return <MuiButton {...props} />
-}
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  (props, ref) => {
+    return <button ref={ref} {...props} />
+  }
+)
+
+Button.displayName = 'Button'
