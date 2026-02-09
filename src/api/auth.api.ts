@@ -14,6 +14,12 @@ export interface AuthResponse {
   }
 }
 
+export interface PkceTokenRequest {
+  code: string
+  codeVerifier: string
+  redirectUri: string
+}
+
 export interface RegisterPayload {
   name: string
   email: string
@@ -34,4 +40,7 @@ export const authApi = {
 
   register: (payload: RegisterPayload) =>
     axiosInstance.post<AuthResponse>('/auth/register', payload),
+
+  exchangePkceCode: (payload: PkceTokenRequest) =>
+    axiosInstance.post<AuthResponse>('/auth/oauth/token', payload),
 }

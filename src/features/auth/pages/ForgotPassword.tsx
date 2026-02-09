@@ -6,6 +6,8 @@ import ShieldOutlinedIcon from '@mui/icons-material/ShieldOutlined'
 import { ThemeToggle } from '@/components/common/ThemeToggle'
 import { authApi } from '@/api/auth.api'
 import { ROUTES } from '@/utils/constants'
+import { shouldForceSsoOnly } from '@/features/auth/authPolicy'
+import { startPkceAuth } from '@/features/auth/pkce'
 
 export function ForgotPassword() {
   const [email, setEmail] = useState('')
@@ -13,6 +15,7 @@ export function ForgotPassword() {
   const [error, setError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigate = useNavigate()
+  const ssoOnly = shouldForceSsoOnly()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -62,6 +65,32 @@ export function ForgotPassword() {
 
           {/* Card */}
           <div className="overflow-hidden rounded-xl bg-white shadow-xl shadow-slate-200/50 ring-1 ring-slate-200 dark:bg-slate-900 dark:shadow-none dark:ring-slate-800">
+            {ssoOnly ? (
+              <div className="p-8 sm:p-10">
+                <div className="mb-6 text-left">
+                  <h1 className="text-xl font-bold text-slate-900 dark:text-white">Company SSO Required</h1>
+                  <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                    Internal staff accounts must sign in using Company SSO.
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  className="flex w-full items-center justify-center rounded-lg bg-primary px-4 py-3 text-sm font-bold text-white shadow-lg shadow-primary/30 transition-all hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  onClick={() => void startPkceAuth()}
+                >
+                  Continue with Company SSO
+                </button>
+
+                <button
+                  type="button"
+                  className="mt-3 w-full text-sm font-semibold text-primary hover:underline"
+                  onClick={() => navigate(ROUTES.LOGIN)}
+                >
+                  Back to login
+                </button>
+              </div>
+            ) : (
             <div className="p-8 sm:p-10">
               <div className="mb-8 text-left">
                 <h1 className="text-xl font-bold text-slate-900 dark:text-white">
@@ -121,20 +150,23 @@ export function ForgotPassword() {
                 </button>
               </form>
             </div>
+            )}
 
             {/* Card Footer */}
-            <div className="bg-slate-50 px-8 py-4 text-center dark:bg-slate-800/50">
-              <p className="text-xs text-slate-500 dark:text-slate-400">
-                Remember your password?
-                <button
-                  type="button"
-                  onClick={() => navigate(ROUTES.LOGIN)}
-                  className="ml-1 inline-flex items-center font-bold text-primary hover:underline"
-                >
-                  Back to login
-                </button>
-              </p>
-            </div>
+            {!ssoOnly && (
+              <div className="bg-slate-50 px-8 py-4 text-center dark:bg-slate-800/50">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Remember your password?
+                  <button
+                    type="button"
+                    onClick={() => navigate(ROUTES.LOGIN)}
+                    className="ml-1 inline-flex items-center font-bold text-primary hover:underline"
+                  >
+                    Back to login
+                  </button>
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Utility Links */}

@@ -13,6 +13,9 @@ import { ThemeToggle } from '@/components/common/ThemeToggle'
 import { authApi } from '@/api/auth.api'
 import { setCredentials } from '../auth.slice'
 import { ROUTES } from '@/utils/constants'
+import { shouldForceSsoOnly } from '@/features/auth/authPolicy'
+import { startPkceAuth } from '@/features/auth/pkce'
+import { startSocialLogin } from '@/features/auth/socialLogin'
 
 export function SignUp() {
   const [fullName, setFullName] = useState('')
@@ -25,6 +28,43 @@ export function SignUp() {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const ssoOnly = shouldForceSsoOnly()
+
+  if (ssoOnly) {
+    return (
+      <div className="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+        <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden p-6 sm:p-12">
+          {/* Theme toggle in corner */}
+          <div className="pointer-events-none absolute right-4 top-4 z-20">
+            <div className="pointer-events-auto rounded-full bg-slate-900/5 p-1 backdrop-blur dark:bg-slate-900/40">
+              <ThemeToggle size="small" />
+            </div>
+          </div>
+
+          <div className="w-full max-w-md overflow-hidden rounded-2xl bg-white p-8 shadow-xl ring-1 ring-slate-200 dark:bg-slate-900 dark:shadow-none dark:ring-slate-800">
+            <h1 className="text-xl font-bold text-slate-900 dark:text-white">Company SSO Required</h1>
+            <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
+              Internal staff accounts can only sign in using Company SSO.
+            </p>
+            <button
+              type="button"
+              className="mt-6 flex w-full items-center justify-center rounded-lg bg-primary px-4 py-3 text-sm font-bold text-white shadow-lg shadow-primary/30 transition-all hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50"
+              onClick={() => void startPkceAuth()}
+            >
+              Continue with Company SSO
+            </button>
+            <button
+              type="button"
+              className="mt-3 w-full text-sm font-semibold text-primary hover:underline"
+              onClick={() => navigate(ROUTES.LOGIN)}
+            >
+              Back to login
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -254,6 +294,7 @@ export function SignUp() {
                 <div className="mt-6 grid grid-cols-2 gap-4">
                   <button
                     type="button"
+                    onClick={() => startSocialLogin('google')}
                     className="flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
                   >
                     <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24" aria-hidden="true">
@@ -278,6 +319,7 @@ export function SignUp() {
                   </button>
                   <button
                     type="button"
+                    onClick={() => startSocialLogin('github')}
                     className="flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
                   >
                     <svg
