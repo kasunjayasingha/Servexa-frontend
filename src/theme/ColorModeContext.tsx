@@ -51,10 +51,14 @@ export function ColorModeProvider({ children }: ColorModeProviderProps) {
         palette: {
           mode,
           primary: {
-            main: '#1976d2',
+            main: '#2b4bee',
           },
           secondary: {
             main: '#dc004e',
+          },
+          background: {
+            default: mode === 'dark' ? '#101322' : '#f5f5f5',
+            paper: mode === 'dark' ? '#1a1e32' : '#ffffff',
           },
         },
       }),

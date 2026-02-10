@@ -4,6 +4,9 @@ import { ROUTES } from '@/utils/constants'
 
 const navItems = [
   { path: ROUTES.DASHBOARD, label: 'Dashboard' },
+  { path: ROUTES.BUSINESS_OWNER_DASHBOARD, label: 'Business Owner' },
+  { path: ROUTES.PLATFORM_ADMIN_DASHBOARD, label: 'Platform Admin' },
+  { path: ROUTES.STAFF_DASHBOARD, label: 'Staff Operations' },
   { path: ROUTES.CUSTOMERS, label: 'Customers' },
   { path: ROUTES.INVENTORY, label: 'Inventory' },
 ]
