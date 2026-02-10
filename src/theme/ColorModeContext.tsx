@@ -51,11 +51,31 @@ export function ColorModeProvider({ children }: ColorModeProviderProps) {
         palette: {
           mode,
           primary: {
-            main: '#1976d2',
+            main: '#2b4bee',
           },
           secondary: {
-            main: '#dc004e',
+            main: '#6d28d9',
           },
+          ...(mode === 'dark'
+            ? {
+                background: {
+                  default: '#0f172a',
+                  paper: '#1e293b',
+                },
+                divider: 'rgba(148, 163, 184, 0.12)',
+              }
+            : {
+                background: {
+                  default: '#f8fafc',
+                  paper: '#ffffff',
+                },
+              }),
+        },
+        typography: {
+          fontFamily: 'Inter, system-ui, sans-serif',
+        },
+        shape: {
+          borderRadius: 8,
         },
       }),
     [mode],
